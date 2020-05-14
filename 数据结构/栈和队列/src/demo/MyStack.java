@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 /**
  * Created with IntelliJ IDEA.
- * Description:
+ * Description: 实现一个顺序栈
  * User: HHH.Y
  * Date: 2020-05-14
  */

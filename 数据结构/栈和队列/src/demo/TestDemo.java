@@ -1,6 +1,8 @@
 package demo;
 
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -11,6 +13,36 @@ import java.util.Stack;
  */
 public class TestDemo {
     public static void main(String[] args) {
+        MyQueue myQueue = new MyQueue();
+        myQueue.offer(1);
+        myQueue.offer(2);
+        myQueue.offer(3);
+        myQueue.offer(4);
+        myQueue.offer(5);
+        System.out.println(myQueue.peek()); // 1
+        System.out.println(myQueue.isEmpty()); // false
+        System.out.println(myQueue.usedSize); // 5
+        System.out.println(myQueue.poll()); // 1
+        System.out.println(myQueue.peek()); // 2
+    }
+
+    public static void main3(String[] args) {
+        Queue<Integer> queue = new LinkedList<>();
+        queue.offer(1);
+        queue.offer(2);
+        queue.offer(3);
+        queue.offer(4);
+        queue.offer(5);
+        System.out.println(queue);
+        System.out.println(queue.peek()); // 1
+        System.out.println(queue.poll()); // 1
+        System.out.println(queue.peek()); // 2
+        System.out.println(queue.isEmpty()); // false
+        System.out.println(queue.size()); // 4
+
+    }
+
+    public static void main2(String[] args) {
         MyStack myStack = new MyStack();
         myStack.push(1);
         myStack.push(2);
