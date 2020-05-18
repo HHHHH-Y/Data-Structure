@@ -29,5 +29,8 @@ public class TestMain {
         System.out.println("叶子节点的个数: " + BinaryTree.leafSize);
         System.out.println();
         System.out.println("叶子节点的个数: " + binaryTree.getLeafSize2(root));
+        System.out.println(binaryTree.getHeight(root));
+        Node ret = binaryTree.find(root, 'A');
+        System.out.println(ret.val);
     }
 }

@@ -121,8 +121,98 @@ public class BinaryTree {
         return getLeafSize2(root.left) + getLeafSize2(root.right);
     }
 
-    // 子问题思路-求第 k 层结点个数
-   /* public int getKLevelSize(Node root) {
+    // 获取二叉树的高度
+    int getHeight(Node root) {
+        if(root == null) {
+            return 0;
+        }
+        int leftHeight = getHeight(root.left);
+        int rightHeight = getHeight(root.right);
+        int max = leftHeight > rightHeight ? leftHeight : rightHeight;
+        return max + 1;
+    }
 
-    }*/
+    Node find(Node root, int val){
+        if(root == null) {
+            return null;
+        }
+        //1、判断根节点是否是查找的数字val
+        if(root.val == val) {
+            return root;
+        }
+        //2、左边
+        Node ret = find(root.left, val);
+        //  递归--》左边全部递归完成后-》返回值是否是空
+        if(ret != null) {
+            return ret;
+        } else {
+            //3、右边
+            Node ret1 = find(root.right, val);
+            if(ret1 != null) {
+                return ret1;
+            }
+        }
+        return null;
+    }
+
+    // 判断两棵树是否相同
+    public boolean isSameTree(Node p, Node q) {
+        if(p == null && q == null){
+            return true;
+        }
+        if(p == null || q == null) {
+            return false;
+        }
+        if(p.val == q.val) {
+            return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+        }
+        return false;
+    }
+
+    public boolean isSubtree(Node s, Node t) {
+        if (s == null || t == null) {
+            return false;
+        }
+        // 1. 判断两棵树是否相同
+        if (isSameTree(s, t)) {
+            return true;
+        }
+        // 2. 判断t树是不是s的左子树
+        if (isSubtree(s.left, t)) {
+           return true;
+        }
+        if (isSubtree(s.right, t)) {
+            return true;
+        }
+        return false;
+    }
+
+    class Solution {
+        public boolean isBalance(Node root) {
+            if(root == null) {
+                return false;
+            }
+            int left = getHeight(root.left);
+            int right = getHeight(root.right);
+            if(Math.abs(left - right) <= 1){
+                return isBalance(root.left) && isBalance(root.right);
+            }
+            return false;
+        }
+
+    }
+
+    public boolean isSymmetricChild(Node leftTree, Node rightTree) {
+        if(leftTree != null && rightTree == null || leftTree == null && rightTree != null) {
+            return false;
+        }
+        if(leftTree == null && rightTree == null) {
+            return true;
+        }
+        if(leftTree.val == rightTree.val) {
+            return isSymmetricChild(leftTree.left, rightTree.right) && isSymmetricChild(leftTree.right, rightTree.left);
+        }
+        return false;
+    }
+
 }
