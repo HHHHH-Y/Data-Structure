@@ -21,7 +21,7 @@ public class TestHeap {
     /**
      * 堆进行调整(向上调整/向下调整), 时间复杂度为 O(logn)
      * root 代表的是需要进行调整的根节点
-     * len 代表的是调整的范围
+     * len 代表的是结束位置
      * @param root
      * @param len
      */
@@ -29,7 +29,7 @@ public class TestHeap {
     public void adjustDown(int root, int len) {
         int parent = root;
         int child = 2 * parent + 1; // 默认孩子孩子节点为左孩子
-        while (child  < len) {
+        while (child  < len) { // 如果 child > len, 说明该树已经调整完毕, 不需要再进行调整
             // 1. 判断是否有右孩子, 然后让child指向左右孩子中值最大的孩子节点
             if(child + 1 < len && this.elem[child] < this.elem[child + 1]) {
                 child = child + 1;
@@ -57,10 +57,10 @@ public class TestHeap {
             this.usedSize++;
         }
         
-        // 需要对元素进行向下调整
+        // 需要对元素进行向下调整 (i 表示每棵子树的根节点下标)
         // 这里表示向下调整的次数
         for (int i = (this.usedSize - 1 - 1) / 2; i >= 0; i--) {
-            adjustDown(i, this.usedSize);
+            adjustDown(i, this.usedSize); // 这里的 usedSize 是用来作为判断调整是否结束的标志
         }
     }
 
