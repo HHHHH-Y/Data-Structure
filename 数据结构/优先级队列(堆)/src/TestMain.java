@@ -14,5 +14,7 @@ public class TestMain {
         testHeap.display();
         testHeap.pop();
         testHeap.display();
+        testHeap.sort();
+        testHeap.display();
     }
 }

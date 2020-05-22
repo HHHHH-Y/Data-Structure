@@ -19,6 +19,7 @@ public class TestHeap {
     }
 
     /**
+     * 堆进行调整(向上调整/向下调整), 时间复杂度为 O(logn)
      * root 代表的是需要进行调整的根节点
      * len 代表的是调整的范围
      * @param root
@@ -48,7 +49,7 @@ public class TestHeap {
         }
     }
     
-    // 创建一个大根堆
+    // 创建一个大根堆 (创建堆的时间复杂度为: O(n) )
     public void createHeap(int[] array) {
         // 将 array 中的元素全部放入 elem 中
         for (int i = 0; i < array.length; i++) {
@@ -87,7 +88,10 @@ public class TestHeap {
         }
     }
 
-    // 往堆中插入一个元素
+    /**
+     * 插入数据
+     * @param val
+     */
     public void add(int val) {
         // 1. 如果数组已经满了, 就需要进行扩容
         if(isFull()) {
@@ -105,6 +109,9 @@ public class TestHeap {
         return this.usedSize == this.elem.length;
     }
 
+    /**
+     * 删除堆顶元素
+     */
     // 堆的删除(堆要进行删除, 一定删除的是堆顶元素)
     public void pop() {
         // 1. 判断堆是否为空, 若为空, 直接返回.
@@ -125,6 +132,21 @@ public class TestHeap {
         return this.usedSize == 0;
     }
 
-    // 将数组的元素从小到大排序
-
+    /**
+     * 如果进行堆排序, 时间复杂度为: O(n*logn)
+     * 空间复杂度为: O(1)
+     */
+    // 如果想要将元素从小到大排序, 需要建立一个大根堆(反之, 如果想要将元素从大到小排序, 需要建立一个小根堆)
+    public void sort() {
+        int end = this.usedSize - 1; // 9
+        while(end > 0) {
+            // 1. 将堆顶元素和最后一个元素进行交换
+            int tmp = this.elem[0];
+            this.elem[0] = this.elem[end];
+            this.elem[end] = tmp;
+            // 2. 将 0 号下标的堆进行向下调整(调整不包括最后一个元素)
+            adjustDown(0, end);
+            end--;
+        }
+    }
 }
