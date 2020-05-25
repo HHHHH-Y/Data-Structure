@@ -174,7 +174,7 @@ public class TestSort {
     }
 
     /**
-     * 快速排序(重要)
+     * 快速排序(重要): 排序最快的排序方法
      * 时间复杂度:  一般而言为 O(n * logn)      最坏情况下(数组已经有序): 1 2 3 4 5 6 / 6 5 4 3 2 1  时间复杂度为: O(n ^ 2)
      * 空间复杂度:  一般而言为 O(logn)          最坏情况下: O(n)
      *
@@ -253,6 +253,12 @@ public class TestSort {
 
     /**
      * 归并排序
+     * 时间复杂度: O(n * logn)
+     * 空间复杂度: O(n)
+     *
+     * 稳定性: 稳定排序
+     *
+     * 使用最多的场景: 外排序: 磁盘
      * @param array
      */
     // 合并
@@ -279,7 +285,7 @@ public class TestSort {
         }
 
         // 合并好的元素全部存放在 ret 数组中, 但是最后打印的却是 array 数组
-        // 因此, 需要将 ret 数组中的元素拷贝到 array 数组中
+        // 因此, 需要将 ret 数组中的元素拷贝到 array 数组中, 但是需要注意 ret 数组和 array 数组的下标
         for (int j = 0; j < ret.length; j++) {
             array[j + left] = ret[j];
         }
