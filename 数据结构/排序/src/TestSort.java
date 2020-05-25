@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Stack;
 
 /**
  * Created with IntelliJ IDEA.
@@ -172,6 +173,86 @@ public class TestSort {
         }
     }
 
+    /**
+     * 快速排序(重要)
+     * 时间复杂度:  一般而言为 O(n * logn)      最坏情况下(数组已经有序): 1 2 3 4 5 6 / 6 5 4 3 2 1  时间复杂度为: O(n ^ 2)
+     * 空间复杂度:  一般而言为 O(logn)          最坏情况下: O(n)
+     *
+     * 稳定性: 不稳定排序
+     * @param array
+     */
+    // 找到基准位置par
+    public static int partition(int[] array, int low, int high) {
+        int tmp = array[low];
+        while (low < high) {
+            while (low < high && array[high] >= tmp) {
+                high--;
+            }
+            array[low] = array[high];
+            while (low < high && array[low] <= tmp) {
+                low++;
+            }
+            array[high] = array[low];
+        }
+        // low == high
+        array[high] = tmp;
+        return high;
+    }
+    // 通过递归进行快速排序
+    public static void quick(int[] array, int left, int right) {
+        // 递归的结束条件
+        if(left >= right) {
+            return;
+        }
+        int par = partition(array, left, right);
+        // 递归par左边的数组
+        quick(array, left, par - 1);
+        // 递归par右边的数组
+        quick(array, par + 1, right);
+    }
+    // 快速排序
+    public static void quickSort(int[] array) {
+        quick(array, 0, array.length - 1);
+    }
+
+
+    // 快速排序的非递归形式:  借助栈
+    // 第一次找到基准之后, 将其左右数组的left, right 全部入栈, 当栈不为空时, 取出其栈顶两个元素分别作为 right 和 left
+    // 继续进行找基准和入栈操作, 直到栈为空, 说明所有元素已经排好序
+    public static void quickSortNul(int[] array) {
+        Stack<Integer> stack = new Stack<>();
+        int left = 0;
+        int right = array.length - 1;
+
+        int par = partition(array, left, right);
+        if(par > left + 1) {
+            stack.push(left);
+            stack.push(par - 1);
+        }
+        if(par < right - 1) {
+            stack.push(par + 1);
+            stack.push(right);
+        }
+        // 当栈不为空时, 将栈顶的两个元素出栈
+        while (!stack.empty()) {
+            right = stack.pop();
+            left = stack.pop();
+            // 寻找新的基准
+            par = partition(array, left, right);
+            // 再将新基准的左右数组下标进栈
+            if(par > left + 1) {
+                stack.push(left);
+                stack.push(par - 1);
+            }
+            if(par < right - 1) {
+                stack.push(par + 1);
+                stack.push(right);
+            }
+        }
+    }
+
+
+    public static void 
     public static void main1(String[] args) {
         int[] array = {12, 5, 9, 34, 6, 8, 33, 56, 89, 0, 7,  4, 22, 55, 77};
         System.out.println(Arrays.toString(array));
@@ -189,7 +270,8 @@ public class TestSort {
        /* insertSort(array);*/
         /*selectSort(array);*/
        /* createHeap(array);*/
-        bubbleSort(array);
+        /*bubbleSort(array);*/
+        quickSortNul(array);
         System.out.println(Arrays.toString(array));
     }
 }
