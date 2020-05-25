@@ -251,8 +251,60 @@ public class TestSort {
         }
     }
 
+    /**
+     * 归并排序
+     * @param array
+     */
+    // 合并
+    public static void merge(int[] array, int left, int mid, int right) {
+        int s1 = left;
+        int s2 = mid + 1;
+        int len = right - left + 1;
+        // 创建一个临时空间, 用于存放合并之后的元素分类
+        int[] ret = new int[len];
+        int i = 0; // i 表示 ret 数组的下标
+        // 当两个分类都有元素时
+        while (s1 <= mid && s2 <= right) {
+            if(array[s1] <= array[s2]) {
+                ret[i++] = array[s1++];
+            } else {
+                ret[i++] = array[s2++];
+            }
+        }
+        while (s1 <= mid) {
+            ret[i++] = array[s1++];
+        }
+        while (s2 <= right) {
+            ret[i++] = array[s2++];
+        }
 
-    public static void 
+        // 合并好的元素全部存放在 ret 数组中, 但是最后打印的却是 array 数组
+        // 因此, 需要将 ret 数组中的元素拷贝到 array 数组中
+        for (int j = 0; j < ret.length; j++) {
+            array[j + left] = ret[j];
+        }
+    }
+
+    public static void merageSortInternal(int[] array, int left, int right) {
+        // 递归的结束条件
+        if(left >= right) {
+            return;
+        }
+        // 1. 分解
+        int mid = (left + right) >>> 1;
+        // 左递归
+        merageSortInternal(array, left, mid);
+        // 右递归
+        merageSortInternal(array, mid + 1, right);
+
+        // 2. 合并
+        merge(array, left, mid, right);
+    }
+
+    public static void mergeSort(int[] array) {
+        merageSortInternal(array, 0, array.length -1);
+    }
+
     public static void main1(String[] args) {
         int[] array = {12, 5, 9, 34, 6, 8, 33, 56, 89, 0, 7,  4, 22, 55, 77};
         System.out.println(Arrays.toString(array));
@@ -271,7 +323,8 @@ public class TestSort {
         /*selectSort(array);*/
        /* createHeap(array);*/
         /*bubbleSort(array);*/
-        quickSortNul(array);
+        /*quickSortNul(array);*/
+        mergeSort(array);
         System.out.println(Arrays.toString(array));
     }
 }

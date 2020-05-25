@@ -73,7 +73,8 @@ public class DemoSort {
         }
 
         // 优化方式1: 当待排序序列中的数据个数小于一定的值之后, 就使用直接插入排序
-        if(right - left <= 100) {
+        // right 和 left 之间相差 right - left + 1 个数
+        if(right - left + 1 <= 100) {
             // 使用直接插入排序
             insertSort(array, left, right);
             return;
