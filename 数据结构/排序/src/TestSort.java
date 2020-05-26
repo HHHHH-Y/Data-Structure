@@ -311,6 +311,49 @@ public class TestSort {
         merageSortInternal(array, 0, array.length -1);
     }
 
+    // 归并排序(非递归形式)
+    public static void mergeSortNul(int[] array, int gap) {
+        int s1 = 0;
+        int e1 = s1 + gap - 1;
+        int s2 = e1 + 1;
+        // 需要视情况而定, 若e2没有越界, 就为s2 + gap - 1, 若 e2 越界, 就为最后一个元素
+        int e2 = s2 + gap - 1 < array.length ? s2 + gap - 1 : array.length - 1;
+        int[] ret = new int[array.length];
+        int k = 0; // 表示ret数组的下标
+
+        // 说明最起码有两个数据段
+        while (s2 < array.length) {
+            // 说明两个数据段都有元素
+            while (s1 <= e1 && s2 <= e2) {
+                if(array[s1] <= array[s2]) {
+                    ret[k++] = array[s1++];
+                } else {
+                    ret[k++] = array[s2++];
+                }
+            }
+            while (s1 <= e1) {
+                ret[k++] = array[s1++];
+            }
+            while (s2 <= e2) {
+                ret[k++] = array[s2++];
+            }
+            // 确定新的s1, e1, s2, e2的位置
+            s1 = e2 + 1;
+            e1 = s1 + gap - 1;
+            s2 = e1 + 1;
+            e2 = s2 + gap - 1 < array.length ? s2 + gap - 1 : array.length - 1;
+        }
+
+        // 没有s2 的情况下, 判断是否有s1, 若有, 就将s1的内容直接归并
+        while (s1 <= array.length - 1) {
+            ret[k++] = array[s1++];
+        }
+        // 将ret 的内容全部放至 array 中
+        for (int i = 0; i < ret.length; i++) {
+            array[i] = ret[i];
+        }
+
+    }
     public static void main1(String[] args) {
         int[] array = {12, 5, 9, 34, 6, 8, 33, 56, 89, 0, 7,  4, 22, 55, 77};
         System.out.println(Arrays.toString(array));
@@ -323,14 +366,16 @@ public class TestSort {
 
     public static void main(String[] args) {
         /*int[] array = {12, 4, 5, 10, 3};*/
-        int[] array = {27, 15, 19, 18, 28, 34, 65, 49, 25, 37};
+        //int[] array = {27, 15, 19, 18, 28, 34, 65, 49, 25, 37};
+        int[] array = {10, 6, 7, 1, 3, 9, 4, 2};
         System.out.println(Arrays.toString(array));
        /* insertSort(array);*/
         /*selectSort(array);*/
        /* createHeap(array);*/
         /*bubbleSort(array);*/
         /*quickSortNul(array);*/
-        mergeSort(array);
+       /* mergeSort(array);*/
+        mergeSortNul(array, 1);
         System.out.println(Arrays.toString(array));
     }
 }
