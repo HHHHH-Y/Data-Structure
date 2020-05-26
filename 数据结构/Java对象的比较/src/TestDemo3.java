@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.PriorityQueue;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,6 +29,14 @@ class Person {
 }
 public class TestDemo3 {
     public static void main(String[] args) {
+        AgeComparator ageComparator = new AgeComparator();
+        PriorityQueue<Person> priorityQueue = new PriorityQueue<>(ageComparator);
+        priorityQueue.offer(new Person("zhangsan", 18, 89));
+        priorityQueue.offer(new Person("lisi", 8, 66));
+        System.out.println(priorityQueue);
+    }
+
+    public static void main2(String[] args) {
         Person person1 = new Person("zhangsan", 18, 89);
         Person person2 = new Person("lisi", 8, 66);
         Person person3 = new Person("wangwu", 28, 96);
