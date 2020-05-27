@@ -7,16 +7,16 @@
  * 4. 泛型到底是如何进行编译的? (重要)
  *    泛型是在编译时期的一种机制 --> 擦除机制
  *    在编译的时候, 是按照 Object 进行编译的, 而不是替换成 Object
- * 5. 泛型是有边界的
+ * 5. 泛型是有边界的, 只有上界 <T extends 上界>, 但是没有下界
  *
  * 泛型的坑:
  * 1. 不能 new 一个泛型类型的数组
  * 2. 简单类型不能作为泛型类型的参数
  *    MyStack<int> myStack1 = new MyStack<>(); 错误的
  * 3. 泛型类型的参数, 不参与泛型类型的组成
- * 4. 泛型中的父子类型:
- *    Object类是 Number类的类型, 但是 MyStack<Object> 不是 MyStack<Number> 的父类
- *    需要使用通配符类确定父子类
+ * 4. 泛型中的父子类型(重要):
+ *    Object类是 Number类的父类, 但是 MyStack<Object> 不是 MyStack<Number> 的父类
+ *    需要使用通配符确定父子类
  *
  * User: HHH.Y
  * Date: 2020-05-27
